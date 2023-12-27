@@ -12,7 +12,9 @@ public class TimerScript : MonoBehaviour
 
     private void Start()
     {
+
         _timerActual = _timerMax;
+
     }
     private void Update()
     {

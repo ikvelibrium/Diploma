@@ -19,7 +19,8 @@ public class MIxSyst : MonoBehaviour
 
     private bool _isRecepyGood;
     private int _counter = 0;
-
+    private int _idSum = 0;
+    private int _ingridientsFromSOSum = 0;
     private void Update()
     {
         _Glass.fillAmount = _curentDrinkVolume / _maxDrinkVolume;
@@ -28,6 +29,7 @@ public class MIxSyst : MonoBehaviour
     {
         for (int i = 0; i < ingrideentsID.Count; i++) 
         {
+            _idSum += ingrideentsID[i];
 
             for (int j = 0; j < _firstOrderSO._Ids.Count; j++)
             {
@@ -40,8 +42,12 @@ public class MIxSyst : MonoBehaviour
                 }
             }
         }
+        for (int i = 0; i < _firstOrderSO._Ids.Count; i++)
+        {
+            _ingridientsFromSOSum += _firstOrderSO._Ids[i];
+        }
         Debug.Log(_counter);
-        if(_counter == 4)
+        if(_counter == 4 && _idSum == _ingridientsFromSOSum)
         {
 
             _isRecepyGood = true;
