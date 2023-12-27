@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42250283b1966b341ac1a93896b5ba41, type: 3}
-  m_Name: Mojito
+  m_Name: Otvertka
   m_EditorClassIdentifier: 
-  OrderName: Mojito
-  _Ids: 00000000010000000200000003000000
+  OrderName: Otvertka
+  _Ids: 0400000005000000

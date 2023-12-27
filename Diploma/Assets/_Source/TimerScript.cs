@@ -18,11 +18,16 @@ public class TimerScript : MonoBehaviour
     }
     private void Update()
     {
-        _timer.fillAmount = _timerActual/_timerMax;
+        _timer.fillAmount = _timerActual / _timerMax;
         _timerActual -= Time.deltaTime;
-        if(_timerActual < 0)
+        if (_timerActual < 0)
         {
             _mixSyst.Loose();
         }
+    }
+
+    public void ResetTime()
+    {
+        _timerActual = _timerMax;
     }
 }

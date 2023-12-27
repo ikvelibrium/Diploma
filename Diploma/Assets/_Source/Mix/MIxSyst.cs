@@ -2,18 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class MIxSyst : MonoBehaviour
 {
     [SerializeField] private Image _Glass;
+
     [SerializeField] private MojitoSO _firstOrderSO;
-    [SerializeField] private ScriptableObject _secondOrderSO;
-    [SerializeField] private ScriptableObject _thirdOrderSO;
     [SerializeField] private GameObject _winScreen;
     [SerializeField] private GameObject _looseScreen;
-   public  List<int> ingrideentsID = new List<int>();
+    [SerializeField] private TMP_Text text;
+    [SerializeField] private TimerScript _timerScript;
+    [SerializeField] private List<MojitoSO> _orders = new List<MojitoSO>();
+    public  List<int> ingrideentsID = new List<int>();
+
     
-    
+    private int _counterTillWin = 0;
     private float _maxDrinkVolume = 100;
     private float _curentDrinkVolume = 0;
 
@@ -31,10 +35,10 @@ public class MIxSyst : MonoBehaviour
         {
             _idSum += ingrideentsID[i];
 
-            for (int j = 0; j < _firstOrderSO._Ids.Count; j++)
+            for (int j = 0; j < _orders[_counterTillWin]._Ids.Count; j++)
             {
                
-                if (ingrideentsID[i] == _firstOrderSO._Ids[j])
+                if (ingrideentsID[i] == _orders[_counterTillWin]._Ids[j])
                 {
                     
                     _counter++;
@@ -42,19 +46,23 @@ public class MIxSyst : MonoBehaviour
                 }
             }
         }
-        for (int i = 0; i < _firstOrderSO._Ids.Count; i++)
+        for (int i = 0; i < _orders[_counterTillWin]._Ids.Count; i++)
         {
-            _ingridientsFromSOSum += _firstOrderSO._Ids[i];
+            _ingridientsFromSOSum += _orders[_counterTillWin]._Ids[i];
         }
-        Debug.Log(_counter);
-        if(_counter == 4 && _idSum == _ingridientsFromSOSum)
+        // Debug.Log($"{_counter} должно быть равно {_orders[_counterTillWin]._Ids.Count}, а тут {_idSum} и {_ingridientsFromSOSum}");
+        if (_counter == _orders[_counterTillWin]._Ids.Count && _idSum == _ingridientsFromSOSum)
         {
-
+            
             _isRecepyGood = true;
         } else
         {
             _isRecepyGood = false;
         }
+        _counter = 0;
+        _ingridientsFromSOSum = 0;
+        _idSum = 0;
+        ingrideentsID.Clear();
     }
     public void AddInDrink(int _id)
     {
@@ -66,9 +74,22 @@ public class MIxSyst : MonoBehaviour
     public void Serve()
     {
         CheckIngridients();
-        if(_isRecepyGood)
+        _curentDrinkVolume = 0;
+        if(_isRecepyGood )
         {
-            Win();
+            _counterTillWin++;
+            if (_counterTillWin >= 3)
+            {
+                Win();
+            } else
+            {
+                text.text = "Order: " + _orders[_counterTillWin].OrderName;
+                _timerScript.ResetTime();
+
+            }
+
+
+
         } else
         {
             Loose();
