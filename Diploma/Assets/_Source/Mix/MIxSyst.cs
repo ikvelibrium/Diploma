@@ -50,7 +50,7 @@ public class MIxSyst : MonoBehaviour
         {
             _ingridientsFromSOSum += _orders[_counterTillWin]._Ids[i];
         }
-        // Debug.Log($"{_counter} должно быть равно {_orders[_counterTillWin]._Ids.Count}, а тут {_idSum} и {_ingridientsFromSOSum}");
+        
         if (_counter == _orders[_counterTillWin]._Ids.Count && _idSum == _ingridientsFromSOSum)
         {
             
