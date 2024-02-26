@@ -7,7 +7,7 @@ using TMPro;
 public class MIxSyst : MonoBehaviour
 {
     [SerializeField] private Image _Glass;
-
+    [SerializeField] private ClientSpawner _clientSpawner;
     [SerializeField] private MojitoSO _firstOrderSO;
     [SerializeField] private GameObject _winScreen;
     [SerializeField] private GameObject _looseScreen;
@@ -25,9 +25,20 @@ public class MIxSyst : MonoBehaviour
     private int _counter = 0;
     private int _idSum = 0;
     private int _ingridientsFromSOSum = 0;
+    private void Start()
+    {
+        if (_orders.Count <= 0)
+        {
+            _clientSpawner.SpawnRandomOrder();
+        }
+    }
     private void Update()
     {
         _Glass.fillAmount = _curentDrinkVolume / _maxDrinkVolume;
+    }
+    public void AddDrinkInOrder(MojitoSO drink)
+    {
+        _orders.Add(drink);
     }
     public void CheckIngridients()
     {
@@ -55,6 +66,9 @@ public class MIxSyst : MonoBehaviour
         {
             
             _isRecepyGood = true;
+
+            _clientSpawner.SpawnRandomOrder();
+
         } else
         {
             _isRecepyGood = false;
@@ -78,7 +92,7 @@ public class MIxSyst : MonoBehaviour
         if(_isRecepyGood )
         {
             _counterTillWin++;
-            if (_counterTillWin >= 3)
+            if (_counterTillWin >= 100)
             {
                 Win();
             } else
